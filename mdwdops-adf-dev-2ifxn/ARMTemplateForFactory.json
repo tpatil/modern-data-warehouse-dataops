@@ -23,6 +23,14 @@
 			"type": "string",
 			"defaultValue": "dbfs:/mnt/datalake/sys/databricks/libs/ddo_transform-localdev-py2.py3-none-any.whl"
 		},
+		"Testing_properties_1_typeProperties_notebookPath": {
+			"type": "string",
+			"defaultValue": "/notebooks/03_transform"
+		},
+		"Testing_properties_1_typeProperties_0_egg": {
+			"type": "string",
+			"defaultValue": "dbfs:/mnt/datalake/sys/databricks/libs/ddo_transform-localdev-py2.py3-none-any.whl"
+		},
 		"Ds_AdlsGen2_MelbParkingData_properties_typeProperties_fileName": {
 			"type": "string",
 			"defaultValue": "@dataset().infilename"
@@ -54,14 +62,6 @@
 		"Ls_Rest_MelParkSensors_01_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://data.melbourne.vic.gov.au/resource/"
-		},
-		"Testing_properties_1_typeProperties_notebookPath": {
-			"type": "string",
-			"defaultValue": "/notebooks/03_transform"
-		},
-		"Testing_properties_1_typeProperties_0_egg": {
-			"type": "string",
-			"defaultValue": "dbfs:/mnt/datalake/sys/databricks/libs/ddo_transform-localdev-py2.py3-none-any.whl"
 		}
 	},
 	"variables": {
@@ -306,7 +306,7 @@
 						],
 						"policy": {
 							"timeout": "7.00:00:00",
-							"retry": 0,
+							"retry": 1,
 							"retryIntervalInSeconds": 30,
 							"secureOutput": false,
 							"secureInput": false
@@ -347,6 +347,124 @@
 				"[concat(variables('factoryId'), '/linkedServices/Ls_AzureDatabricks_01')]",
 				"[concat(variables('factoryId'), '/datasets/Ds_REST_MelbParkingData')]",
 				"[concat(variables('factoryId'), '/datasets/Ds_AdlsGen2_MelbParkingData')]",
+				"[concat(variables('factoryId'), '/linkedServices/Ls_AzureSQLDW_01')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Testing')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Hello from NDC Sydney!!!",
+				"activities": [
+					{
+						"name": "Set infilefolder",
+						"type": "SetVariable",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "infilefolder",
+							"value": {
+								"value": "2022_05_19_06_29_30",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "TransformData",
+						"type": "DatabricksNotebook",
+						"dependsOn": [
+							{
+								"activity": "Set infilefolder",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "[parameters('Testing_properties_1_typeProperties_notebookPath')]",
+							"baseParameters": {
+								"loadid": {
+									"value": "2853c062-1a63-40e8-86c9-b76b7cbdc82a",
+									"type": "Expression"
+								}
+							},
+							"libraries": [
+								{
+									"egg": "[parameters('Testing_properties_1_typeProperties_0_egg')]"
+								},
+								{
+									"pypi": {
+										"package": "applicationinsights"
+									}
+								}
+							]
+						},
+						"linkedServiceName": {
+							"referenceName": "Ls_AzureDatabricks_01",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "Load SQLDW",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [
+							{
+								"activity": "TransformData",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "[[dbo].[load_dw]",
+							"storedProcedureParameters": {
+								"load_id": {
+									"value": {
+										"value": "@pipeline().RunId",
+										"type": "Expression"
+									},
+									"type": "String"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "Ls_AzureSQLDW_01",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"variables": {
+					"infilefolder": {
+						"type": "String",
+						"defaultValue": "lnd"
+					}
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-05-18T10:02:46Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Ls_AzureDatabricks_01')]",
 				"[concat(variables('factoryId'), '/linkedServices/Ls_AzureSQLDW_01')]"
 			]
 		},
@@ -534,124 +652,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/P_Ingest_MelbParkingData')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Testing')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "Hello from NDC Sydney!!!",
-				"activities": [
-					{
-						"name": "Set infilefolder",
-						"type": "SetVariable",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"variableName": "infilefolder",
-							"value": {
-								"value": "2022_05_19_06_29_30",
-								"type": "Expression"
-							}
-						}
-					},
-					{
-						"name": "TransformData",
-						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "Set infilefolder",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "[parameters('Testing_properties_1_typeProperties_notebookPath')]",
-							"baseParameters": {
-								"loadid": {
-									"value": "2853c062-1a63-40e8-86c9-b76b7cbdc82a",
-									"type": "Expression"
-								}
-							},
-							"libraries": [
-								{
-									"egg": "[parameters('Testing_properties_1_typeProperties_0_egg')]"
-								},
-								{
-									"pypi": {
-										"package": "applicationinsights"
-									}
-								}
-							]
-						},
-						"linkedServiceName": {
-							"referenceName": "Ls_AzureDatabricks_01",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "Load SQLDW",
-						"type": "SqlServerStoredProcedure",
-						"dependsOn": [
-							{
-								"activity": "TransformData",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"storedProcedureName": "[[dbo].[load_dw]",
-							"storedProcedureParameters": {
-								"load_id": {
-									"value": {
-										"value": "@pipeline().RunId",
-										"type": "Expression"
-									},
-									"type": "String"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "Ls_AzureSQLDW_01",
-							"type": "LinkedServiceReference"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"variables": {
-					"infilefolder": {
-						"type": "String",
-						"defaultValue": "lnd"
-					}
-				},
-				"annotations": [],
-				"lastPublishTime": "2022-05-18T10:02:46Z"
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Ls_AzureDatabricks_01')]",
-				"[concat(variables('factoryId'), '/linkedServices/Ls_AzureSQLDW_01')]"
 			]
 		}
 	]
