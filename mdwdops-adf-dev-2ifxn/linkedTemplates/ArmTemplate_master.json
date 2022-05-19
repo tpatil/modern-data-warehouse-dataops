@@ -55,6 +55,14 @@
 			"type": "string",
 			"defaultValue": "https://data.melbourne.vic.gov.au/resource/"
 		},
+		"Testing_properties_1_typeProperties_notebookPath": {
+			"type": "string",
+			"defaultValue": "/notebooks/03_transform"
+		},
+		"Testing_properties_1_typeProperties_0_egg": {
+			"type": "string",
+			"defaultValue": "dbfs:/mnt/datalake/sys/databricks/libs/ddo_transform-localdev-py2.py3-none-any.whl"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -117,6 +125,12 @@
 					},
 					"P_Ingest_MelbParkingData_properties_4_typeProperties_0_egg": {
 						"value": "[parameters('P_Ingest_MelbParkingData_properties_4_typeProperties_0_egg')]"
+					},
+					"Testing_properties_1_typeProperties_notebookPath": {
+						"value": "[parameters('Testing_properties_1_typeProperties_notebookPath')]"
+					},
+					"Testing_properties_1_typeProperties_0_egg": {
+						"value": "[parameters('Testing_properties_1_typeProperties_0_egg')]"
 					}
 				}
 			},
