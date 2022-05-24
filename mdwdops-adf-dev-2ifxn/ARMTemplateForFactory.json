@@ -359,7 +359,7 @@
 				"activities": [
 					{
 						"name": "Set infilefolder",
-						"description": "tokens with new branch ",
+						"description": "",
 						"type": "SetVariable",
 						"dependsOn": [],
 						"userProperties": [],
@@ -373,7 +373,7 @@
 					},
 					{
 						"name": "TransformData",
-						"description": "tokens with new branch new changes",
+						"description": "",
 						"type": "DatabricksNotebook",
 						"dependsOn": [
 							{
@@ -417,7 +417,7 @@
 					},
 					{
 						"name": "Load SQLDW",
-						"description": "doing publish after mdwdops-ci-artifacts pipeline complete",
+						"description": "",
 						"type": "SqlServerStoredProcedure",
 						"dependsOn": [
 							{
