@@ -17,12 +17,6 @@
 		"P_Ingest_MelbParkingData_properties_4_typeProperties_0_egg": {
 			"value": "dbfs:/mnt/datalake/sys/databricks/libs/ddo_transform-localdev-py2.py3-none-any.whl"
 		},
-		"Testing_properties_1_typeProperties_notebookPath": {
-			"value": "/notebooks/03_transform"
-		},
-		"Testing_properties_1_typeProperties_0_egg": {
-			"value": "dbfs:/mnt/datalake/sys/databricks/libs/ddo_transform-localdev-py2.py3-none-any.whl"
-		},
 		"Ds_AdlsGen2_MelbParkingData_properties_typeProperties_fileName": {
 			"value": "@dataset().infilename"
 		},
