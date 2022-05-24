@@ -359,6 +359,7 @@
 				"activities": [
 					{
 						"name": "Set infilefolder",
+						"description": "",
 						"type": "SetVariable",
 						"dependsOn": [],
 						"userProperties": [],
@@ -372,6 +373,7 @@
 					},
 					{
 						"name": "TransformData",
+						"description": "This is for testing purpose ",
 						"type": "DatabricksNotebook",
 						"dependsOn": [
 							{
@@ -415,6 +417,7 @@
 					},
 					{
 						"name": "Load SQLDW",
+						"description": "This is for testing purpose ",
 						"type": "SqlServerStoredProcedure",
 						"dependsOn": [
 							{
