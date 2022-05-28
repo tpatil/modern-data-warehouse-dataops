@@ -279,6 +279,7 @@
 					},
 					{
 						"name": "Set infilefolder",
+						"description": "testing",
 						"type": "SetVariable",
 						"dependsOn": [],
 						"userProperties": [],
