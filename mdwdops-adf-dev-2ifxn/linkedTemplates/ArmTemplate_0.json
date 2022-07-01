@@ -27,6 +27,14 @@
 			"type": "string",
 			"defaultValue": "https://data.melbourne.vic.gov.au/resource/"
 		},
+		"P_Ingest_non_functional_bay_properties_0_typeProperties_notebookPath": {
+			"type": "string",
+			"defaultValue": "/notebooks/non_functional_bay"
+		},
+		"P_Ingest_non_functional_bay_properties_0_typeProperties_0_egg": {
+			"type": "string",
+			"defaultValue": "dbfs:/mnt/datalake/sys/databricks/libs/ddo_transform-localdev-py2.py3-none-any.whl"
+		},
 		"Ds_AdlsGen2_MelbParkingData_properties_typeProperties_fileName": {
 			"type": "string",
 			"defaultValue": "@dataset().infilename"
@@ -123,6 +131,62 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/P_Ingest_non_functional_bay')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Hello from NDC Sydney!!!",
+				"activities": [
+					{
+						"name": "non_functional_bay",
+						"description": "",
+						"type": "DatabricksNotebook",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "[parameters('P_Ingest_non_functional_bay_properties_0_typeProperties_notebookPath')]",
+							"libraries": [
+								{
+									"egg": "[parameters('P_Ingest_non_functional_bay_properties_0_typeProperties_0_egg')]"
+								},
+								{
+									"pypi": {
+										"package": "applicationinsights"
+									}
+								}
+							]
+						},
+						"linkedServiceName": {
+							"referenceName": "Ls_AzureDatabricks_01",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"variables": {
+					"infilefolder": {
+						"type": "String",
+						"defaultValue": "lnd"
+					}
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-05-18T10:02:46Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Ls_AzureDatabricks_01')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Ds_AdlsGen2_MelbParkingData')]",
