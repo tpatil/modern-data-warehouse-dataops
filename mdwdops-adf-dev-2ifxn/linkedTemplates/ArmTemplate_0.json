@@ -287,7 +287,7 @@
 					},
 					{
 						"name": "Set infilefolder",
-						"description": "testing",
+						"description": "",
 						"type": "SetVariable",
 						"dependsOn": [],
 						"userProperties": [],
@@ -543,6 +543,16 @@
 						"userProperties": [],
 						"typeProperties": {
 							"notebookPath": "[parameters('P_Ingest_non_functional_bay_properties_0_typeProperties_notebookPath')]",
+							"baseParameters": {
+								"infilefolder": {
+									"value": "@variables('infilefolder')",
+									"type": "Expression"
+								},
+								"loadid": {
+									"value": "@pipeline().RunId",
+									"type": "Expression"
+								}
+							},
 							"libraries": [
 								{
 									"egg": "[parameters('P_Ingest_non_functional_bay_properties_0_typeProperties_0_egg')]"
@@ -561,7 +571,7 @@
 					},
 					{
 						"name": "Set infilefolder",
-						"description": "testing",
+						"description": "",
 						"type": "SetVariable",
 						"dependsOn": [],
 						"userProperties": [],
