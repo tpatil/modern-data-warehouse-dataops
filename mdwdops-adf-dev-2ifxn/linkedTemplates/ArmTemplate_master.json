@@ -105,12 +105,6 @@
 					"Ls_Rest_MelParkSensors_01_properties_typeProperties_url": {
 						"value": "[parameters('Ls_Rest_MelParkSensors_01_properties_typeProperties_url')]"
 					},
-					"P_Ingest_non_functional_bay_properties_0_typeProperties_notebookPath": {
-						"value": "[parameters('P_Ingest_non_functional_bay_properties_0_typeProperties_notebookPath')]"
-					},
-					"P_Ingest_non_functional_bay_properties_0_typeProperties_0_egg": {
-						"value": "[parameters('P_Ingest_non_functional_bay_properties_0_typeProperties_0_egg')]"
-					},
 					"Ds_AdlsGen2_MelbParkingData_properties_typeProperties_fileName": {
 						"value": "[parameters('Ds_AdlsGen2_MelbParkingData_properties_typeProperties_fileName')]"
 					},
@@ -131,6 +125,12 @@
 					},
 					"P_Ingest_MelbParkingData_properties_4_typeProperties_0_egg": {
 						"value": "[parameters('P_Ingest_MelbParkingData_properties_4_typeProperties_0_egg')]"
+					},
+					"P_Ingest_non_functional_bay_properties_0_typeProperties_notebookPath": {
+						"value": "[parameters('P_Ingest_non_functional_bay_properties_0_typeProperties_notebookPath')]"
+					},
+					"P_Ingest_non_functional_bay_properties_0_typeProperties_0_egg": {
+						"value": "[parameters('P_Ingest_non_functional_bay_properties_0_typeProperties_0_egg')]"
 					}
 				}
 			},
