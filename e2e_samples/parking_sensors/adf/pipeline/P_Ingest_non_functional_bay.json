@@ -32,8 +32,14 @@
 				"typeProperties": {
 					"notebookPath": "/notebooks/non_functional_bay",
 					"baseParameters": {
-						"infilefolder": "@variables('infilefolder')",
-						"loadid": "@pipeline().RunId"
+						"infilefolder": {
+							"value": "@variables('infilefolder')",
+							"type": "Expression"
+						},
+						"loadid": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						}
 					},
 					"libraries": [
 						{
@@ -53,7 +59,7 @@
 			},
 			{
 				"name": "Set infilefolder",
-				"description": "testing",
+				"description": "",
 				"type": "SetVariable",
 				"dependsOn": [],
 				"userProperties": [],
