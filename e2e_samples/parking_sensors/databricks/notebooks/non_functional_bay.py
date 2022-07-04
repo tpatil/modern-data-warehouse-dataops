@@ -62,6 +62,7 @@ t_sensordata_sdf.createOrReplaceTempView("sensor_non_functional_bay")
 
 # COMMAND ----------
 
+base_path = 'dbfs:/mnt/datalake/data/dw/'
 non_functional_bay=sql("""select distinct pf.bay_id, 'non-functional' as status from parking_non_functional_bay pf inner join sensor_non_functional_bay sf on pf.bay_id=sf.bay_id  order by pf.bay_id desc limit 100""")
 util.save_overwrite_unmanaged_table(spark, non_functional_bay, table_name="dw.non_functional_bay", path=os.path.join(base_path, "non_functional_bay"))
 
