@@ -59,7 +59,7 @@
 			},
 			{
 				"name": "Set infilefolder",
-				"description": "",
+				"description": "aaa",
 				"type": "SetVariable",
 				"dependsOn": [],
 				"userProperties": [],
