@@ -41,6 +41,8 @@ jobs:
             databricks fs cp "${WHEEL_FILE_PATH}/${WHEEL_FILE_NAME}" "${DBFS_LIBS_PATH}/${WHEEL_FILE_NAME}"
             echo "Uploading notebooks at ${NOTEBOOKS_PATH} to workspace (${DATABRICKS_NOTEBOOK_PATH})..."
             databricks workspace import_dir --overwrite "${NOTEBOOKS_PATH}" "${DATABRICKS_NOTEBOOK_PATH}"
+            databricks fs cp "${WHEEL_FILE_PATH}/${WHEEL_FILE_NAME}" "dbfs:/mnt/datalake/sys/databricks/libs/latest/${WHEEL_FILE_NAME}"
+            databricks workspace import_dir --overwrite "${NOTEBOOKS_PATH}" "/releases/latest"
           env:
             DATABRICKS_HOST: $(databricksDomain)
             DATABRICKS_TOKEN: $(databricksToken)
