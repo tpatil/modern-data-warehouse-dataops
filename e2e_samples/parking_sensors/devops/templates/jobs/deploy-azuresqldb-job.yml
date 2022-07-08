@@ -16,6 +16,14 @@ jobs:
     runOnce:
       deploy:
         steps:
+        - script: |
+            base_path='dbfs:/mnt/datalake/data/dw'
+            list_folder=['non_functional_bay','testing']
+            for folders in list_folder:
+                path=os.path.join(base_path,folders)
+                if not os.path.exists(path):
+                    os.makedirs(path)
+          displayName: 'Creating Folder'
         # https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/sql-azure-dacpac-deployment?view=azure-devops
         - task: SqlAzureDacpacDeployment@1
           inputs:
