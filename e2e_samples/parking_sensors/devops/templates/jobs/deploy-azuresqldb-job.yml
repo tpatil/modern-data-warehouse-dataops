@@ -16,6 +16,13 @@ jobs:
     runOnce:
       deploy:
         steps:
+        - task: UsePythonVersion@0
+          inputs:
+            versionSpec: '$(pythonVersion)'
+            addToPath: true
+            architecture: 'x64'
+          displayName: 'Use Python Version: $(pythonVersion)'
+          
         - script: |
             base_path='dbfs:/mnt/datalake/data/dw'
             list_folder=['non_functional_bay','testing']
