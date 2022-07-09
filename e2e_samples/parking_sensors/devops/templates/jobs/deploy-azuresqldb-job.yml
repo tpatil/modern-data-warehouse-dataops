@@ -11,6 +11,7 @@ jobs:
     vmImage: 'windows-latest'
   variables:
     sqlProjName: ddo_azuresqldw_dw
+    pythonVersion: 3.6
   environment: ${{ parameters.environmentName }}
   strategy:
     runOnce:
