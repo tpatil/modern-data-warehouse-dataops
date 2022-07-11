@@ -23,12 +23,7 @@ base_path = 'dbfs:/mnt/datalake/data/dw/'
 parkingbay_sdf = spark.read.table("interim.parking_bay").filter(col('load_id') == lit(load_id))
 sensordata_sdf = spark.read.table("interim.sensor").filter(col('load_id') == lit(load_id))
 
-# new code
-#sensordata_non_functional_bay = spark.read.table("interim.sensor").filter(col('load_id') == lit(load_id))
-#sensordata_non_functional_bay.createOrReplaceTempView("sensordata_non_functional_bay")
-#non_functional_bay=sql("""select distinct bay_id, 'non-functional' as status from sensordata_non_functional_bay order by bay_id desc limit 100""")
-#util.save_overwrite_unmanaged_table(spark, non_functional_bay, table_name="dw.non_functional_bay", path=os.path.join(base_path, "non_functional_bay"))
-non_functional_bay = spark.read.table("dw.non_functional_bay")
+#non_functional_bay = spark.read.table("dw.non_functional_bay")
 
 # COMMAND ----------
 
@@ -65,7 +60,8 @@ dim_location_sdf = spark.read.table("dw.dim_location")
 dim_st_marker = spark.read.table("dw.dim_st_marker")
 
 # Process
-nr_fact_parking = t.process_fact_parking(sensordata_sdf, dim_parkingbay_sdf, dim_location_sdf, dim_st_marker, load_id, loaded_on, non_functional_bay)
+#nr_fact_parking = t.process_fact_parking(sensordata_sdf, dim_parkingbay_sdf, dim_location_sdf, dim_st_marker, load_id, loaded_on, non_functional_bay)
+nr_fact_parking = t.process_fact_parking(sensordata_sdf, dim_parkingbay_sdf, dim_location_sdf, dim_st_marker, load_id, loaded_on)
 
 # Insert new rows
 nr_fact_parking.write.mode("append").insertInto("dw.fact_parking")

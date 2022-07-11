@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -93,11 +93,12 @@
     <Build Include="dbo\Stored Procedures\load_dim_time.sql" />
     <Build Include="dbo\Stored Procedures\load_dim_date.sql" />
     <Build Include="External Resources\CSVSkipHeaderFileFormat.sql" />
-    <Build Include="ext\External Tables\dim_time.sql" />
+    <Build Include="ext\External Tables\dim_time.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
     <Build Include="ext\External Tables\dim_date.sql">
       <QuotedIdentifier>Off</QuotedIdentifier>
     </Build>
-    <Build Include="ext\External Tables\non_functional_bay.sql" />
   </ItemGroup>
   <ItemGroup>
     <SqlCmdVariable Include="ADLSCredentialKey">
