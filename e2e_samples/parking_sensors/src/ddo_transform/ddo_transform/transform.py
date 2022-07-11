@@ -278,7 +278,7 @@ def process_fact_parking(sensordata_sdf: DataFrame,
                          dim_parkingbay_sdf: DataFrame,
                          dim_location_sdf: DataFrame,
                          dim_st_marker_sdf: DataFrame,
-                         load_id, loaded_on, non_functional_bay):
+                         load_id, loaded_on):
     """Transform sensordata into fact_parking"""
 
     dim_date_id = loaded_on.strftime("%Y%m%d")
