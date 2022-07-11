@@ -23,14 +23,6 @@
 			"type": "string",
 			"defaultValue": "dbfs:/mnt/datalake/sys/databricks/libs/ddo_transform-localdev-py2.py3-none-any.whl"
 		},
-		"P_Ingest_non_functional_bay_properties_0_typeProperties_notebookPath": {
-			"type": "string",
-			"defaultValue": "/notebooks/non_functional_bay"
-		},
-		"P_Ingest_non_functional_bay_properties_0_typeProperties_0_egg": {
-			"type": "string",
-			"defaultValue": "dbfs:/mnt/datalake/sys/databricks/libs/ddo_transform-localdev-py2.py3-none-any.whl"
-		},
 		"Ds_AdlsGen2_MelbParkingData_properties_typeProperties_fileName": {
 			"type": "string",
 			"defaultValue": "@dataset().infilename"
@@ -125,12 +117,6 @@
 					},
 					"P_Ingest_MelbParkingData_properties_4_typeProperties_0_egg": {
 						"value": "[parameters('P_Ingest_MelbParkingData_properties_4_typeProperties_0_egg')]"
-					},
-					"P_Ingest_non_functional_bay_properties_0_typeProperties_notebookPath": {
-						"value": "[parameters('P_Ingest_non_functional_bay_properties_0_typeProperties_notebookPath')]"
-					},
-					"P_Ingest_non_functional_bay_properties_0_typeProperties_0_egg": {
-						"value": "[parameters('P_Ingest_non_functional_bay_properties_0_typeProperties_0_egg')]"
 					}
 				}
 			},
