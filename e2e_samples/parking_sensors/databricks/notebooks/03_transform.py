@@ -60,8 +60,7 @@ dim_location_sdf = spark.read.table("dw.dim_location")
 dim_st_marker = spark.read.table("dw.dim_st_marker")
 
 # Process
-#nr_fact_parking = t.process_fact_parking(sensordata_sdf, dim_parkingbay_sdf, dim_location_sdf, dim_st_marker, load_id, loaded_on, non_functional_bay)
-nr_fact_parking = t.process_fact_parking(sensordata_sdf, dim_parkingbay_sdf, dim_location_sdf, dim_st_marker, load_id, loaded_on)
+nr_fact_parking = t.process_fact_parking(sensordata_sdf, dim_parkingbay_sdf, dim_location_sdf, dim_st_marker, load_id, loaded_on, non_functional_bay)
 
 # Insert new rows
 nr_fact_parking.write.mode("append").insertInto("dw.fact_parking")
