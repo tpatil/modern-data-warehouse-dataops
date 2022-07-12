@@ -23,7 +23,7 @@ base_path = 'dbfs:/mnt/datalake/data/dw/'
 parkingbay_sdf = spark.read.table("interim.parking_bay").filter(col('load_id') == lit(load_id))
 sensordata_sdf = spark.read.table("interim.sensor").filter(col('load_id') == lit(load_id))
 
-#non_functional_bay = spark.read.table("dw.non_functional_bay")
+non_functional_bay = spark.read.table("dw.non_functional_bay")
 
 # COMMAND ----------
 
