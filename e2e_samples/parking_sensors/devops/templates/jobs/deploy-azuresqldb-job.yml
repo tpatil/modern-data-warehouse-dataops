@@ -12,6 +12,8 @@ jobs:
   variables:
     sqlProjName: ddo_azuresqldw_dw
     pythonVersion: 3.6
+    base_path: 'dbfs:/mnt/datalake/data/dw'
+    list_folder: ['non_functional_bay','testing']
   environment: ${{ parameters.environmentName }}
   strategy:
     runOnce:
@@ -25,10 +27,8 @@ jobs:
           displayName: 'Use Python Version: $(pythonVersion)'
           
         - script: |
-            base_path='dbfs:/mnt/datalake/data/dw'
-            list_folder=['non_functional_bay','testing']
-            for $folders in $list_folder:
-                path=os.path.join($base_path,$folders)
+            for folders in $list_folder:
+                path=os.path.join($base_path,folders)
                 if not os.path.exists($path):
                     os.makedirs($path)
           displayName: 'Creating Folder'
